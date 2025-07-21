@@ -10,7 +10,7 @@ export class EventBus implements IEventBus {
   }
 
   emit<T extends IEvent>(event: T): void {
-    this._eventEmitter.emit(event.name, event.data);
+    this._eventEmitter.emit(event.name, event);
   }
 
   on<T extends IEvent>(

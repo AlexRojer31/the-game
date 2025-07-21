@@ -5,6 +5,7 @@ import { RunBundleLoader } from "../loaders/bundle-loader/run";
 import { RunSceneLoader } from "../loaders/scene-loader/run";
 import { LoadSceneEvent } from "../event-bus/events/scene-events/load-scene-event";
 import { DefaultSceneLoader } from "../../modules/default-scene/default-scene";
+import { DefaultResizePlugin } from "../plugins/resize-plugin/default-resize-plagin";
 
 let application!: Application;
 
@@ -21,6 +22,7 @@ export async function Run(): Promise<void> {
   RunEventBus();
   RunBundleLoader();
   RunSceneLoader();
+  new DefaultResizePlugin();
 
   GetEventBus().emit({ name: LoadSceneEvent, data: new DefaultSceneLoader() });
 }
