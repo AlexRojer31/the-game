@@ -3,23 +3,23 @@ import { GetEventBus } from "../../event-bus/run";
 import { IScene } from "./i-scene";
 
 export class DefaultSceneLoader {
-  private scenes: Map<string, IScene> = new Map();
-  private currentScene: IScene | null = null;
+  private _scenes: Map<string, IScene> = new Map();
+  private _currentScene: IScene | null = null;
 
   constructor() {
-    this.subscribes();
+    this._subscribes();
   }
 
-  private subscribes(): void {
+  private _subscribes(): void {
     GetEventBus().on(LoadSceneEvent, (e: LoadSceneEvent) => {
-      this.currentScene?.unload();
-      if (this.scenes.has(e.data.getName())) {
-        this.scenes.get(e.data.getName())!.load();
+      this._currentScene?.unload();
+      if (this._scenes.has(e.data.getName())) {
+        this._scenes.get(e.data.getName())!.load();
       } else {
-        this.scenes.set(e.data.getName(), e.data.loadScene());
-        this.scenes.get(e.data.getName())!.load();
+        this._scenes.set(e.data.getName(), e.data.loadScene());
+        this._scenes.get(e.data.getName())!.load();
       }
-      this.currentScene = this.scenes.get(e.data.getName())!;
+      this._currentScene = this._scenes.get(e.data.getName())!;
     });
   }
 }

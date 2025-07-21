@@ -2,20 +2,20 @@ import { Application, Assets, AssetsBundle, AssetsManifest } from "pixi.js";
 import * as utils from "@pixi/utils";
 
 export class App {
-  private application: Application = new Application();
+  private _application: Application = new Application();
 
-  async init(): Promise<void> {
-    await this.application.init({
+  public async init(): Promise<void> {
+    await this._application.init({
       antialias: true,
       backgroundAlpha: 0,
       resizeTo: window,
     });
     document
       .getElementById("pixi-container")!
-      .appendChild(this.application.canvas);
+      .appendChild(this._application.canvas);
   }
 
-  async loadBandles(): Promise<void> {
+  public async loadBandles(): Promise<void> {
     const baseUrl = "assets";
     const resolution = Math.min(
       utils.isMobile.any ? window.devicePixelRatio : 3,
@@ -41,6 +41,6 @@ export class App {
   }
 
   public getApp(): Application {
-    return this.application;
+    return this._application;
   }
 }

@@ -16,13 +16,13 @@ export class DefaultSceneLoader implements ISceneLoader {
 }
 
 export class DefaultScene extends Container implements IScene {
-  private ticker: Ticker = new Ticker();
+  private _ticker: Ticker = new Ticker();
 
   constructor() {
     super();
     this._subscribes();
 
-    this.ticker.add(() => {
+    this._ticker.add(() => {
       this.animate();
     });
   }
@@ -30,13 +30,13 @@ export class DefaultScene extends Container implements IScene {
   public load(): void {
     GetApp().stage.addChild(this);
     this.visible = true;
-    this.ticker.start();
+    this._ticker.start();
   }
 
   public unload(): void {
     GetApp().stage.removeChild(this);
     this.visible = false;
-    this.ticker.stop();
+    this._ticker.stop();
   }
 
   private _subscribes(): void {

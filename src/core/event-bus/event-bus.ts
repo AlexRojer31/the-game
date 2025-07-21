@@ -9,11 +9,11 @@ export class EventBus implements IEventBus {
     this._eventEmitter = new EventEmitter();
   }
 
-  emit<T extends IEvent>(event: T): void {
+  public emit<T extends IEvent>(event: T): void {
     this._eventEmitter.emit(event.name, event);
   }
 
-  on<T extends IEvent>(
+  public on<T extends IEvent>(
     eventName: string,
     action: (event: T) => void,
     context?: unknown,
@@ -21,7 +21,7 @@ export class EventBus implements IEventBus {
     this._eventEmitter.addListener(eventName, action, context);
   }
 
-  off(eventName: string): void {
+  public off(eventName: string): void {
     this._eventEmitter.removeListener(eventName);
   }
 }
