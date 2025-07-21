@@ -2,7 +2,7 @@ import { LoadSceneEvent } from "../../event-bus/events/scene-events/load-scene-e
 import { GetEventBus } from "../../event-bus/run";
 import { IScene } from "./i-scene";
 
-export class SceneLoader {
+export class DefaultSceneLoader {
   private scenes: Map<string, IScene> = new Map();
   private currentScene: IScene | null = null;
 

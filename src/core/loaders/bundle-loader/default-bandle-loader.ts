@@ -7,7 +7,7 @@ import { UnloadBandleEvent } from "../../event-bus/events/load-bandle-events/unl
 import { LoadExternalBandleEvent } from "../../event-bus/events/load-bandle-events/load-external-bundle-event";
 import { GetEventBus } from "../../event-bus/run";
 
-export class BandleLoader {
+export class DefaultBandleLoader {
   private loadedBandles: Map<string, BANDLE_LOADING_STATES> = new Map();
 
   constructor() {

@@ -1,11 +1,11 @@
-import { SceneLoader } from "./scene-loader";
+import { DefaultSceneLoader } from "./default-scene-loader";
 
-let instance: SceneLoader | null = null;
+let instance: DefaultSceneLoader | null = null;
 
-export function GetSceneLoader(): SceneLoader {
+export function GetSceneLoader(): DefaultSceneLoader {
   return instance!;
 }
 
 export function RunSceneLoader() {
-  instance = new SceneLoader();
+  instance = new DefaultSceneLoader();
 }

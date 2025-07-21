@@ -1,11 +1,11 @@
-import { BandleLoader } from "./bandle-loader";
+import { DefaultBandleLoader } from "./default-bandle-loader";
 
-let instance: BandleLoader | null = null;
+let instance: DefaultBandleLoader | null = null;
 
-export function GetBandleLoader(): BandleLoader {
+export function GetBandleLoader(): DefaultBandleLoader {
   return instance!;
 }
 
 export function RunBundleLoader() {
-  instance = new BandleLoader();
+  instance = new DefaultBandleLoader();
 }
