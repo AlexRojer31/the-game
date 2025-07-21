@@ -19,7 +19,7 @@ export async function Run(): Promise<void> {
   RunBundleLoader();
   RunSceneLoader();
 
-  GetEventBus().emit({ name: LoadSceneEvent, data: "testscene" });
+  GetEventBus().emit({ name: LoadSceneEvent, data: "DefaultScene" });
 }
 
 async function init(application: Application): Promise<void> {
