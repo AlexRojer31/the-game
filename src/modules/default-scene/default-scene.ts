@@ -23,7 +23,7 @@ export class DefaultScene extends Container implements IScene {
     this._subscribes();
 
     this._ticker.add(() => {
-      this.animate();
+      this._animate();
     });
   }
 
@@ -45,5 +45,5 @@ export class DefaultScene extends Container implements IScene {
     });
   }
 
-  private animate(): void {}
+  private _animate(): void {}
 }
