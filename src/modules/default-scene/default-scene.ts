@@ -2,6 +2,8 @@ import { Container, Ticker } from "pixi.js";
 import { IScene } from "../../core/loaders/scene-loader/i-scene";
 import { GetApp } from "../../core/app/run";
 import { ISceneLoader } from "../../core/loaders/scene-loader/i-scene-loader";
+import { GetEventBus } from "../../core/event-bus/run";
+import { WindowResizeEvent } from "../../core/event-bus/events/window-events/window-resize-event";
 
 export class DefaultSceneLoader implements ISceneLoader {
   public getName(): string {
@@ -18,25 +20,30 @@ export class DefaultScene extends Container implements IScene {
 
   constructor() {
     super();
-    this.subscribes();
+    this._subscribes();
 
     this.ticker.add(() => {
       this.animate();
     });
   }
 
-  load(): void {
+  public load(): void {
     GetApp().stage.addChild(this);
     this.visible = true;
     this.ticker.start();
   }
 
-  unload(): void {
+  public unload(): void {
     GetApp().stage.removeChild(this);
     this.visible = false;
     this.ticker.stop();
   }
 
-  private subscribes(): void {}
+  private _subscribes(): void {
+    GetEventBus().on(WindowResizeEvent, (e: WindowResizeEvent) => {
+      console.log(e.data);
+    });
+  }
+
   private animate(): void {}
 }
