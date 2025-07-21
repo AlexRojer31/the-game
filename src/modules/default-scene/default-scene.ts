@@ -1,6 +1,16 @@
 import { Container, Ticker } from "pixi.js";
-import { IScene } from "../../core/loaders/scene-loader/i-scene";
+import { IScene, ISceneLoader } from "../../core/loaders/scene-loader/i-scene";
 import { app } from "../../core/app/app";
+
+export class DefaultSceneLoader implements ISceneLoader {
+  public getName(): string {
+    return "DefaultScene";
+  }
+
+  public loadScene(): IScene {
+    return new DefaultScene();
+  }
+}
 
 export class DefaultScene extends Container implements IScene {
   private ticker: Ticker = new Ticker();

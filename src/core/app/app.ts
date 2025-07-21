@@ -4,6 +4,7 @@ import { RunBundleLoader } from "../loaders/bundle-loader/run";
 import { RunSceneLoader } from "../loaders/scene-loader/run";
 import { GetEventBus, RunEventBus } from "../event-bus/run";
 import { LoadSceneEvent } from "../event-bus/events/scene-events/load-scene-event";
+import { DefaultSceneLoader } from "../../modules/default-scene/default-scene";
 let application: Application | null = null;
 
 export function app(): Application {
@@ -19,7 +20,7 @@ export async function Run(): Promise<void> {
   RunBundleLoader();
   RunSceneLoader();
 
-  GetEventBus().emit({ name: LoadSceneEvent, data: "DefaultScene" });
+  GetEventBus().emit({ name: LoadSceneEvent, data: new DefaultSceneLoader() });
 }
 
 async function init(application: Application): Promise<void> {
