@@ -1,4 +1,4 @@
-import { ISceneLoader } from "../../../loaders/scene-loader/i-scene";
+import { ISceneLoader } from "../../../loaders/scene-loader/i-scene-loader";
 import { IEvent } from "../../i-event";
 
 export const LoadSceneEvent: string = "LoadSceneEvent";

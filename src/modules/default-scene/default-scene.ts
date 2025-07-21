@@ -1,6 +1,7 @@
 import { Container, Ticker } from "pixi.js";
-import { IScene, ISceneLoader } from "../../core/loaders/scene-loader/i-scene";
-import { app } from "../../core/app/app";
+import { IScene } from "../../core/loaders/scene-loader/i-scene";
+import { GetApp } from "../../core/app/run";
+import { ISceneLoader } from "../../core/loaders/scene-loader/i-scene-loader";
 
 export class DefaultSceneLoader implements ISceneLoader {
   public getName(): string {
@@ -25,13 +26,13 @@ export class DefaultScene extends Container implements IScene {
   }
 
   load(): void {
-    app().stage.addChild(this);
+    GetApp().stage.addChild(this);
     this.visible = true;
     this.ticker.start();
   }
 
   unload(): void {
-    app().stage.removeChild(this);
+    GetApp().stage.removeChild(this);
     this.visible = false;
     this.ticker.stop();
   }
