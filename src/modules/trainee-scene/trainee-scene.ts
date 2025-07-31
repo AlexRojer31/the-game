@@ -18,8 +18,8 @@ export class TraineeSceneLoader implements ISceneLoader {
 export class TraineeScene extends Container implements IScene {
   private _ticker: Ticker = new Ticker();
 
-  private _gameWidth!: number;
-  private _gameHeight!: number;
+  private _sceneWidth!: number;
+  private _sceneHeight!: number;
 
   constructor() {
     super();
@@ -44,8 +44,9 @@ export class TraineeScene extends Container implements IScene {
 
   private _subscribes(): void {
     GetEventBus().on(WindowResizeEvent, (e: WindowResizeEvent) => {
-      this._gameWidth = e.data.width;
-      this._gameHeight = e.data.height;
+      this._sceneWidth = e.data.width;
+      this._sceneHeight = e.data.height;
+      console.log(this._sceneWidth + "x" + this._sceneHeight);
     });
   }
 
