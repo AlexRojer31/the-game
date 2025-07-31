@@ -42,6 +42,8 @@ export class TraineeScene extends Container implements IScene {
     this._ticker.stop();
   }
 
+  public pause(): void {}
+
   private _subscribes(): void {
     GetEventBus().on(WindowResizeEvent, (e: WindowResizeEvent) => {
       this._sceneWidth = e.data.width;

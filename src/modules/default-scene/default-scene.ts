@@ -68,6 +68,8 @@ export class DefaultScene extends Container implements IScene {
     this._ticker.stop();
   }
 
+  public pause(): void {}
+
   private _subscribes(): void {
     GetEventBus().on(WindowResizeEvent, (e: WindowResizeEvent) => {
       this._gameWidth = e.data.width;

@@ -1,5 +1,11 @@
 import { Application, Assets, AssetsBundle, AssetsManifest } from "pixi.js";
 import * as utils from "@pixi/utils";
+import { GetEventBus, RunEventBus } from "../event-bus/run";
+import { RunBundleLoader } from "../loaders/bundle-loader/run";
+import { RunSceneLoader } from "../loaders/scene-loader/run";
+import { RunResizePlugin } from "../plugins/resize-plugin/run";
+import { LoadSceneEvent } from "../event-bus/events/scene-events/load-scene-event";
+import { config } from "../../config";
 
 export class App {
   private _application: Application = new Application();
@@ -15,7 +21,7 @@ export class App {
       .appendChild(this._application.canvas);
   }
 
-  public async loadBandles(): Promise<void> {
+  public async preloadBandles(): Promise<void> {
     const baseUrl = "assets";
     const resolution = Math.min(
       utils.isMobile.any ? window.devicePixelRatio : 3,
@@ -42,5 +48,27 @@ export class App {
 
   public getApp(): Application {
     return this._application;
+  }
+
+  public run(): void {
+    RunEventBus();
+
+    this.runLoaders();
+    this.runPlugin();
+
+    this.emitFirstEvents();
+  }
+
+  public runLoaders(): void {
+    RunBundleLoader();
+    RunSceneLoader();
+  }
+
+  public runPlugin(): void {
+    RunResizePlugin();
+  }
+
+  public emitFirstEvents(): void {
+    GetEventBus().emit({ name: LoadSceneEvent, data: config.firstScene });
   }
 }
