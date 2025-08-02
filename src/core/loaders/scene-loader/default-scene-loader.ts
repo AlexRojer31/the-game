@@ -22,4 +22,8 @@ export class DefaultSceneLoader {
       this._currentScene = this._scenes.get(e.data.getName())!;
     });
   }
+
+  public getCurrentScene(): IScene | null {
+    return this._currentScene;
+  }
 }
