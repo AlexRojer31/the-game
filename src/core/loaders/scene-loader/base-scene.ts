@@ -3,6 +3,7 @@ import { IScene } from "./i-scene";
 import { GetApp } from "../../app/run";
 import { GetEventBus } from "../../event-bus/run";
 import { WindowResizeEvent } from "../../event-bus/events/window-events/window-resize-event";
+import { WindowVisibilityChangeEvent } from "../../event-bus/events/window-events/window-visibility-change-event";
 
 export class BaseScene extends Container implements IScene {
   protected _ticker: Ticker = new Ticker();
@@ -30,15 +31,29 @@ export class BaseScene extends Container implements IScene {
     this._ticker.stop();
   }
 
-  public pause(): void {}
+  public pause(): void {
+    this._ticker.stop();
+  }
 
-  public resume(): void {}
+  public resume(): void {
+    this._ticker.start();
+  }
 
   protected _subscribes(): void {
     GetEventBus().on(WindowResizeEvent, (e: WindowResizeEvent) => {
       this._sceneWidth = e.data.width;
       this._sceneHeight = e.data.height;
     });
+    GetEventBus().on(
+      WindowVisibilityChangeEvent,
+      (e: WindowVisibilityChangeEvent) => {
+        if (!e.data) {
+          this.resume();
+        } else {
+          this.pause();
+        }
+      },
+    );
   }
 
   protected _animate(): void {}
