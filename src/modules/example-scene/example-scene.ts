@@ -28,6 +28,7 @@ export class ExampleScene extends BaseScene {
     this._circle = new Graphics();
     this._currentRectColor = this.randomColor();
     this._currentCircleColor = this.randomColor();
+    this.addChild(this._rect, this._circle);
   }
 
   protected _animate(): void {
