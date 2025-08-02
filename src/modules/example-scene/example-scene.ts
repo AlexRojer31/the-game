@@ -1,30 +1,12 @@
-import { Container, Graphics, Ticker } from "pixi.js";
-import { IScene } from "../../core/loaders/scene-loader/i-scene";
-import { GetApp } from "../../core/app/run";
-import { ISceneLoader } from "../../core/loaders/scene-loader/i-scene-loader";
-import { GetEventBus } from "../../core/event-bus/run";
-import { WindowResizeEvent } from "../../core/event-bus/events/window-events/window-resize-event";
+import { Graphics } from "pixi.js";
 import { Vec2 } from "../../core/utils/vec2";
+import { BaseScene } from "../../core/loaders/scene-loader/base-scene";
 
-export class DefaultSceneLoader implements ISceneLoader {
-  public getName(): string {
-    return "DefaultScene";
-  }
-
-  public loadScene(): IScene {
-    return new DefaultScene();
-  }
-}
-
-export class DefaultScene extends Container implements IScene {
-  private _ticker: Ticker = new Ticker();
-
+export class ExampleScene extends BaseScene {
   private _rect!: Graphics;
   private _circle!: Graphics;
   private _currentRectColor!: number;
   private _currentCircleColor!: number;
-  private _gameWidth!: number;
-  private _gameHeight!: number;
 
   private _xVelocity: number = 1;
   private _yVelocity: number = 1;
@@ -41,43 +23,16 @@ export class DefaultScene extends Container implements IScene {
 
   constructor() {
     super();
-    this._subscribes();
 
     this._rect = new Graphics();
     this._circle = new Graphics();
     this._currentRectColor = this.randomColor();
     this._currentCircleColor = this.randomColor();
-    this._gameWidth = GetApp().screen.width;
-    this._gameHeight = GetApp().screen.height;
-    this.addChild(this._rect, this._circle);
-
-    this._ticker.add(() => {
-      this._animate();
-    });
   }
 
-  public load(): void {
-    GetApp().stage.addChild(this);
-    this.visible = true;
-    this._ticker.start();
-  }
+  protected _animate(): void {
+    super._animate();
 
-  public unload(): void {
-    GetApp().stage.removeChild(this);
-    this.visible = false;
-    this._ticker.stop();
-  }
-
-  public pause(): void {}
-
-  private _subscribes(): void {
-    GetEventBus().on(WindowResizeEvent, (e: WindowResizeEvent) => {
-      this._gameWidth = e.data.width;
-      this._gameHeight = e.data.height;
-    });
-  }
-
-  private _animate(): void {
     this.animateRect();
     this.animateCircle();
   }
@@ -89,9 +44,9 @@ export class DefaultScene extends Container implements IScene {
       this._circleVelocity.scale(delta),
     );
 
-    if (this._circlePosition.x + this._circleRadius >= this._gameWidth) {
+    if (this._circlePosition.x + this._circleRadius >= this._sceneWidth) {
       const diff: number =
-        this._circlePosition.x + this._circleRadius - this._gameWidth;
+        this._circlePosition.x + this._circleRadius - this._sceneWidth;
       this._circlePosition = new Vec2(
         this._circlePosition.x - 2 * diff,
         this._circlePosition.y,
@@ -116,9 +71,9 @@ export class DefaultScene extends Container implements IScene {
       this._currentCircleColor = this.randomColor();
     }
 
-    if (this._circlePosition.y + this._circleRadius > this._gameHeight) {
+    if (this._circlePosition.y + this._circleRadius > this._sceneHeight) {
       const diff: number =
-        this._circlePosition.y + this._circleRadius - this._gameHeight;
+        this._circlePosition.y + this._circleRadius - this._sceneHeight;
       this._circlePosition = new Vec2(
         this._circlePosition.x,
         this._circlePosition.y - 2 * diff,
@@ -149,7 +104,7 @@ export class DefaultScene extends Container implements IScene {
       .rect(this._xPosition, this._yPosition, this._rectWidth, this._rectHeight)
       .fill({ color: this._currentRectColor });
 
-    if (this._xPosition + this._rectWidth === this._gameWidth) {
+    if (this._xPosition + this._rectWidth === this._sceneWidth) {
       this._xVelocity = -1;
       this._currentRectColor = this.randomColor();
     }
@@ -157,7 +112,7 @@ export class DefaultScene extends Container implements IScene {
       this._xVelocity = 1;
       this._currentRectColor = this.randomColor();
     }
-    if (this._yPosition + this._rectHeight === this._gameHeight) {
+    if (this._yPosition + this._rectHeight === this._sceneHeight) {
       this._yVelocity = -1;
       this._currentRectColor = this.randomColor();
     }
