@@ -6,6 +6,7 @@ import { RunSceneLoader } from "../loaders/scene-loader/run";
 import { RunResizePlugin } from "../plugins/resize-plugin/run";
 import { LoadSceneEvent } from "../event-bus/events/scene-events/load-scene-event";
 import { config } from "../../config";
+import { RunVisibilityPlugin } from "../plugins/visibility-plugin/run";
 
 export class App {
   private _application: Application = new Application();
@@ -66,6 +67,7 @@ export class App {
 
   public runPlugin(): void {
     RunResizePlugin();
+    RunVisibilityPlugin();
   }
 
   public emitFirstEvents(): void {

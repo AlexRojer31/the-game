@@ -1,5 +1,5 @@
 import { Ticker } from "pixi.js";
-import { RESIZING_STATES } from "./resizing-states";
+import { RESIZING_STATE } from "./resizing-state";
 import { GetEventBus } from "../../event-bus/run";
 import { WindowResizeEvent } from "../../event-bus/events/window-events/window-resize-event";
 
@@ -8,7 +8,7 @@ export class DefaultResizePlugin {
   private _currentDebounce: number = 0;
   private _currentWidth: number = window.innerWidth;
   private _currentHeight: number = window.innerHeight;
-  private _currentState: number = RESIZING_STATES.idle;
+  private _currentState: RESIZING_STATE = RESIZING_STATE.idle;
   private _ticker: Ticker = new Ticker();
 
   constructor() {
@@ -17,20 +17,20 @@ export class DefaultResizePlugin {
     }, this);
 
     window.addEventListener("resize", () => {
-      this._currentState = RESIZING_STATES.resizing;
+      this._currentState = RESIZING_STATE.resizing;
       this._ticker.start();
     });
   }
 
   private _animate(): void {
     switch (this._currentState) {
-      case RESIZING_STATES.idle:
+      case RESIZING_STATE.idle:
         this._ticker.stop();
         break;
-      case RESIZING_STATES.resizing:
+      case RESIZING_STATE.resizing:
         this._resize();
         break;
-      case RESIZING_STATES.update:
+      case RESIZING_STATE.update:
         this._update();
         break;
     }
@@ -53,12 +53,12 @@ export class DefaultResizePlugin {
     }
 
     if (height == this._currentHeight && width == this._currentWidth) {
-      this._currentState = RESIZING_STATES.update;
+      this._currentState = RESIZING_STATE.update;
     }
   }
 
   private _update(): void {
-    this._currentState = RESIZING_STATES.idle;
+    this._currentState = RESIZING_STATE.idle;
 
     GetEventBus().emit({
       name: WindowResizeEvent,
@@ -67,5 +67,9 @@ export class DefaultResizePlugin {
         height: window.innerHeight,
       },
     });
+  }
+
+  public getCurrentState(): RESIZING_STATE {
+    return this._currentState;
   }
 }
