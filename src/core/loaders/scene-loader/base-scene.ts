@@ -19,6 +19,10 @@ export class BaseScene extends Container implements IScene {
     });
   }
 
+  public getCurrentTicker(): Ticker {
+    return this._ticker;
+  }
+
   public load(): void {
     GetApp().stage.addChild(this);
     this.visible = true;

@@ -1,9 +1,9 @@
 import { Component } from "./component";
 
 export class Entity {
-  private _id!: string;
+  protected _id!: string;
 
-  private _components: Component[] = [];
+  protected _components: Component[] = [];
 
   constructor() {
     this._id = crypto.randomUUID();

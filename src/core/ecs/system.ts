@@ -1,7 +1,7 @@
 import { Component } from "./component";
 
 export class System {
-  private _components: Component[] = [];
+  protected _components: Component[] = [];
 
   constructor() {}
 

@@ -1,7 +1,7 @@
 export class Component {
-  private _id!: string;
+  protected _id!: string;
 
-  private _isDeleted: boolean = false;
+  protected _isDeleted: boolean = false;
 
   constructor() {
     this._id = crypto.randomUUID();
