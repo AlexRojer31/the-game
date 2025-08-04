@@ -3,6 +3,8 @@ import { System } from "../core/ecs/system";
 import { GetApp } from "../core/app/run";
 import { BodyGraphics } from "./body-graphics";
 import { Body } from "../physics/body";
+import { GetSceneLoader } from "../core/loaders/scene-loader/run";
+import { ISceneSize } from "../core/loaders/scene-loader/i-scene";
 
 export class GraphicsSystem extends System {
   public graphics: Graphics = new Graphics();
@@ -11,13 +13,21 @@ export class GraphicsSystem extends System {
 
   constructor() {
     super();
-    // this.parentElement = document.getElementById(config.rootElementId);
-    // this.parentElement.appendChild(this.app.view);
-    // this.app = new PIXI.Application({ width: this.width, height: this.height });
-    // this.app.stage.addChild(this.graphics);
+
+    GetSceneLoader()
+      .getCurrentScene()!
+      .getCurrentContainer()
+      .addChild(this.graphics);
   }
 
   update() {
+    const currentSize: ISceneSize = GetSceneLoader()
+      .getCurrentScene()!
+      .getCurrentSize();
+
+    this.width = currentSize.width;
+    this.height = currentSize.height;
+
     this.graphics.clear();
     for (const component of this._components) {
       if (component instanceof BodyGraphics) {
