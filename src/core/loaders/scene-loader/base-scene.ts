@@ -77,12 +77,12 @@ export class BaseScene extends Container implements IScene {
 
     GetEventBus().on(SceneLoadedEvent, (e: SceneLoadedEvent) => {
       if (e.data === this._sceneName && !this._doOnce) {
-        this._run();
+        this._prepare();
         this._doOnce = true;
       }
     });
   }
 
   protected _animate(): void {}
-  protected _run(): void {}
+  protected _prepare(): void {}
 }
