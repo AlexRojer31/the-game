@@ -21,8 +21,8 @@ export class ExampleScene extends BaseScene {
 
   private _gravity: Vec2 = new Vec2(0, 500);
 
-  constructor() {
-    super();
+  constructor(sceneName: string) {
+    super(sceneName);
 
     this._rect = new Graphics();
     this._circle = new Graphics();

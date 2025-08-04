@@ -6,6 +6,6 @@ export class TraineeEcsSceneLoader extends BaseSceneLoader {
   protected _name: string = "TraineeScene";
 
   protected load(): IScene {
-    return new TraineeEcsScene();
+    return new TraineeEcsScene(this._name);
   }
 }

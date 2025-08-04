@@ -6,6 +6,6 @@ export class ExampleSceneLoader extends BaseSceneLoader {
   protected _name: string = "ExampleScene";
 
   protected load(): IScene {
-    return new ExampleScene();
+    return new ExampleScene(this._name);
   }
 }

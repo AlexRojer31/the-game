@@ -14,6 +14,6 @@ export class BaseSceneLoader implements ISceneLoader {
   }
 
   protected load(): IScene {
-    return new BaseScene();
+    return new BaseScene(this._name);
   }
 }
