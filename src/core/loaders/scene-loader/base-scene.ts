@@ -1,5 +1,5 @@
 import { Container, Ticker } from "pixi.js";
-import { IScene } from "./i-scene";
+import { IScene, ISceneSize } from "./i-scene";
 import { GetApp } from "../../app/run";
 import { GetEventBus } from "../../event-bus/run";
 import { WindowResizeEvent } from "../../event-bus/events/window-events/window-resize-event";
@@ -17,6 +17,17 @@ export class BaseScene extends Container implements IScene {
     this._ticker.add(() => {
       this._animate();
     });
+  }
+
+  public getCurrentContainer(): Container {
+    return this as Container;
+  }
+
+  public getCurrentSize(): ISceneSize {
+    return {
+      width: this._sceneWidth,
+      height: this._sceneHeight,
+    };
   }
 
   public getCurrentTicker(): Ticker {

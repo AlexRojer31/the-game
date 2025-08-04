@@ -1,4 +1,9 @@
-import { Ticker } from "pixi.js";
+import { Container, Ticker } from "pixi.js";
+
+export interface ISceneSize {
+  width: number;
+  height: number;
+}
 
 export interface IScene {
   load(): void;
@@ -6,4 +11,6 @@ export interface IScene {
   pause(): void;
   resume(): void;
   getCurrentTicker(): Ticker;
+  getCurrentSize(): ISceneSize;
+  getCurrentContainer(): Container;
 }
