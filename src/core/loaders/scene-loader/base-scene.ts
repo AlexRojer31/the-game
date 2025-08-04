@@ -6,6 +6,7 @@ import { WindowResizeEvent } from "../../event-bus/events/window-events/window-r
 import { WindowVisibilityChangeEvent } from "../../event-bus/events/window-events/window-visibility-change-event";
 
 export class BaseScene extends Container implements IScene {
+  protected _doOnce: boolean = false;
   protected _ticker: Ticker = new Ticker();
   protected _sceneWidth: number = GetApp().screen.width;
   protected _sceneHeight: number = GetApp().screen.height;
@@ -72,4 +73,5 @@ export class BaseScene extends Container implements IScene {
   }
 
   protected _animate(): void {}
+  protected _run(): void {}
 }

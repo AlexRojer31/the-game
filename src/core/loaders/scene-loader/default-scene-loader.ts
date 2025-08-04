@@ -1,4 +1,5 @@
 import { LoadSceneEvent } from "../../event-bus/events/scene-events/load-scene-event";
+import { SceneLoadedEvent } from "../../event-bus/events/scene-events/scene-loaded-event";
 import { GetEventBus } from "../../event-bus/run";
 import { IScene } from "./i-scene";
 
@@ -20,6 +21,8 @@ export class DefaultSceneLoader {
         this._scenes.get(e.data.getName())!.load();
       }
       this._currentScene = this._scenes.get(e.data.getName())!;
+
+      GetEventBus().emit({ name: SceneLoadedEvent, data: e.data.getName() });
     });
   }
 
