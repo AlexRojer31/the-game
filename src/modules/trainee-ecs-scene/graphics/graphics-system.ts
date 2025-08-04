@@ -32,7 +32,6 @@ export class GraphicsSystem extends System {
     for (const component of this._components) {
       if (component instanceof BodyGraphics) {
         this.graphics
-          .clear()
           .circle(
             component.body.position.x,
             component.body.position.y,
