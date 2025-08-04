@@ -1,4 +1,4 @@
-import { Component } from "../core/ecs/component";
+import { Component } from "../../../core/ecs/component";
 import { Body } from "../physics/body";
 
 export class BodyGraphics extends Component {

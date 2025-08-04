@@ -1,5 +1,5 @@
-import { System } from "../core/ecs/system";
-import { GetSceneLoader } from "../core/loaders/scene-loader/run";
+import { System } from "../../../core/ecs/system";
+import { GetSceneLoader } from "../../../core/loaders/scene-loader/run";
 import { Body } from "./body";
 
 export class Physics extends System {

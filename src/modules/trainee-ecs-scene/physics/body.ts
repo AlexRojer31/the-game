@@ -1,5 +1,5 @@
-import { Component } from "../core/ecs/component";
-import { Vec2 } from "../core/utils/vec2";
+import { Component } from "../../../core/ecs/component";
+import { Vec2 } from "../../../core/utils/vec2";
 
 export class Body extends Component {
   public position: Vec2;

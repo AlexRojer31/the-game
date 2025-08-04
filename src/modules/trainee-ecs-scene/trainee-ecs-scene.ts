@@ -1,3 +1,3 @@
 import { BaseScene } from "../../core/loaders/scene-loader/base-scene";
 
-export class TraineeScene extends BaseScene {}
+export class TraineeEcsScene extends BaseScene {}
