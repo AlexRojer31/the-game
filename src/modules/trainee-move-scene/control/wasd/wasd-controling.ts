@@ -6,7 +6,9 @@ export default class WASDControling extends System {
     super();
   }
 
-  public update(): void {}
+  public update(): void {
+    super.update();
+  }
 
   public createWASDControlable(): WASDControlable {
     return new WASDControlable();

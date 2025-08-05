@@ -17,6 +17,7 @@ export default class Rectangling extends System {
   }
 
   public update(): void {
+    super.update();
     this.rectangle.clear();
     for (const component of this._components) {
       const c: Rectangable = component as Rectangable;

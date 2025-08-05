@@ -12,6 +12,7 @@ export default class FlatMoving extends System {
   }
 
   public update(): void {
+    super.update();
     for (const component of this._components) {
       const c: FlatMovable = component as FlatMovable;
       c.position = c.position.add(c.velocity.scale(this._delta));
