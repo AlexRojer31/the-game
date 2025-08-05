@@ -19,7 +19,7 @@ export default class Rectangling extends System {
   public update(): void {
     super.update();
     this.rectangle.clear();
-    for (const component of this._components) {
+    for (const component of this.getComponents()) {
       const c: Rectangable = component as Rectangable;
       this.rectangle
         .rect(
@@ -42,7 +42,7 @@ export default class Rectangling extends System {
       height,
       flatMovable,
     });
-    this._components.push(component);
+    this.pushComponents(component);
     return component;
   }
 }

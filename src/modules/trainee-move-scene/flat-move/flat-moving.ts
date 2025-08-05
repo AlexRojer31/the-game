@@ -17,7 +17,7 @@ export default class FlatMoving extends System {
 
   public update(): void {
     super.update();
-    for (const component of this._components) {
+    for (const component of this.getComponents()) {
       const c: FlatMovable = component as FlatMovable;
 
       let horVelocity = 0;
@@ -49,7 +49,7 @@ export default class FlatMoving extends System {
       velocity: velocity,
       WASDControlable: WASDControlable,
     });
-    this._components.push(component);
+    this.pushComponents(component);
     return component;
   }
 }

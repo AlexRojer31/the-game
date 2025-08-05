@@ -6,7 +6,7 @@ export default class WASDControling extends System {
     super();
 
     window.onkeydown = (event) => {
-      for (const component of this._components) {
+      for (const component of this.getComponents()) {
         const c: WASDControlable = component as WASDControlable;
         if (event.code === "KeyW") {
           c.top = true;
@@ -21,7 +21,7 @@ export default class WASDControling extends System {
     };
 
     window.onkeyup = (event) => {
-      for (const component of this._components) {
+      for (const component of this.getComponents()) {
         const c: WASDControlable = component as WASDControlable;
         if (event.code === "KeyW") {
           c.top = false;
@@ -38,7 +38,7 @@ export default class WASDControling extends System {
 
   public createWASDControlable(): WASDControlable {
     const component = new WASDControlable();
-    this._components.push(component);
+    this.pushComponents(component);
     return component;
   }
 }
