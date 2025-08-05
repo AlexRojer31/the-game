@@ -1,5 +1,5 @@
-import { TraineeMoveSceneLoader } from "./experimental-scenes/trainee-move-scene/trainee-move-scene-loader";
+import { CollisionSceneLoader } from "./experimental-scenes/collision-scene/collision-scene-loader";
 
 export const config = {
-  firstScene: new TraineeMoveSceneLoader(),
+  firstScene: new CollisionSceneLoader(),
 };
