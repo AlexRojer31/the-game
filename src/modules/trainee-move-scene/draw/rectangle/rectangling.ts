@@ -1,8 +1,7 @@
 import { Graphics } from "pixi.js";
 import { System } from "../../../../core/ecs/system";
-import Rectangable from "./rectangable";
+import Rectangable, { IRectangable } from "./rectangable";
 import { GetSceneLoader } from "../../../../core/loaders/scene-loader/run";
-import FlatMovable from "../../flat-move/flat-movable";
 
 export default class Rectangling extends System {
   public rectangle: Graphics = new Graphics();
@@ -32,16 +31,8 @@ export default class Rectangling extends System {
     }
   }
 
-  public createRectangable(
-    width: number,
-    height: number,
-    flatMovable: FlatMovable,
-  ): Rectangable {
-    const component = new Rectangable({
-      width,
-      height,
-      flatMovable,
-    });
+  public createRectangable(data: IRectangable): Rectangable {
+    const component = new Rectangable(data);
     this.pushComponents(component);
     return component;
   }

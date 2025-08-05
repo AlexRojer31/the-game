@@ -40,17 +40,16 @@ export class TraineeMoveScene extends BaseScene {
   ): void {
     const entity = new Entity();
     const WASDControlable = this.wasdControlling.createWASDControlable();
-    const flatMovable = this.flatMoving.createFlatMovable(
-      posX,
-      posY,
-      new Vec2(0, 0),
+    const flatMovable = this.flatMoving.createFlatMovable({
+      startPosition: new Vec2(posX, posY),
+      velocity: new Vec2(0, 0),
       WASDControlable,
-    );
-    const drawRectangable = this.drawRectangling.createRectangable(
+    });
+    const drawRectangable = this.drawRectangling.createRectangable({
       width,
       height,
       flatMovable,
-    );
+    });
 
     entity.attachComponents(WASDControlable, flatMovable, drawRectangable);
   }

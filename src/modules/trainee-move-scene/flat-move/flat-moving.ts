@@ -1,8 +1,7 @@
 import { System } from "../../../core/ecs/system";
 import { GetSceneLoader } from "../../../core/loaders/scene-loader/run";
 import { Vec2 } from "../../../core/utils/vec2";
-import WASDControlable from "../control/wasd/wasd-contolable";
-import FlatMovable from "./flat-movable";
+import FlatMovable, { IFlatMovable } from "./flat-movable";
 
 export default class FlatMoving extends System {
   private _defaultVelocity: number = 200;
@@ -38,17 +37,8 @@ export default class FlatMoving extends System {
     }
   }
 
-  public createFlatMovable(
-    posX: number,
-    posY: number,
-    velocity: Vec2,
-    WASDControlable: WASDControlable,
-  ): FlatMovable {
-    const component = new FlatMovable({
-      startPosition: new Vec2(posX, posY),
-      velocity: velocity,
-      WASDControlable: WASDControlable,
-    });
+  public createFlatMovable(data: IFlatMovable): FlatMovable {
+    const component = new FlatMovable(data);
     this.pushComponents(component);
     return component;
   }
