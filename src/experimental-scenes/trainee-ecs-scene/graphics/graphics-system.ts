@@ -6,7 +6,7 @@ import { Body } from "../physics/body";
 import { GetSceneLoader } from "../../../core/loaders/scene-loader/run";
 import { ISceneSize } from "../../../core/loaders/scene-loader/i-scene";
 
-export class GraphicsSystem extends System {
+export class GraphicsSystem extends System<BodyGraphics> {
   public graphics: Graphics = new Graphics();
   public width: number = GetApp().screen.width;
   public height: number = GetApp().screen.height;
@@ -30,15 +30,13 @@ export class GraphicsSystem extends System {
 
     this.graphics.clear();
     for (const component of this.getComponents()) {
-      if (component instanceof BodyGraphics) {
-        this.graphics
-          .circle(
-            component.body.position.x,
-            component.body.position.y,
-            component.body.radius,
-          )
-          .fill({ color: component.color });
-      }
+      this.graphics
+        .circle(
+          component.body.position.x,
+          component.body.position.y,
+          component.body.radius,
+        )
+        .fill({ color: component.color });
     }
   }
 

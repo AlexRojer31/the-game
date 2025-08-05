@@ -3,7 +3,7 @@ import { System } from "../../../../core/ecs/system";
 import Rectangable, { IRectangable } from "./rectangable";
 import { GetSceneLoader } from "../../../../core/loaders/scene-loader/run";
 
-export default class Rectangling extends System {
+export default class Rectangling extends System<Rectangable> {
   public rectangle: Graphics = new Graphics();
 
   constructor() {
@@ -19,13 +19,12 @@ export default class Rectangling extends System {
     super.update();
     this.rectangle.clear();
     for (const component of this.getComponents()) {
-      const c: Rectangable = component as Rectangable;
       this.rectangle
         .rect(
-          c.flatMovable.position.x,
-          c.flatMovable.position.y,
-          c.width,
-          c.height,
+          component.flatMovable.position.x,
+          component.flatMovable.position.y,
+          component.width,
+          component.height,
         )
         .fill({ color: "red" });
     }

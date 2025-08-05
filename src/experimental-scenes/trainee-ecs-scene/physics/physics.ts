@@ -2,7 +2,7 @@ import { System } from "../../../core/ecs/system";
 import { GetSceneLoader } from "../../../core/loaders/scene-loader/run";
 import { Body } from "./body";
 
-export class Physics extends System {
+export class Physics extends System<Body> {
   protected _delta: number =
     GetSceneLoader().getCurrentScene()!.getCurrentTicker().deltaMS / 1000;
 
@@ -12,14 +12,12 @@ export class Physics extends System {
 
   public update(): void {
     for (const component of this.getComponents()) {
-      if (component instanceof Body) {
-        component.velocity = component.velocity.add(
-          component.acceleration.scale(this._delta),
-        );
-        component.position = component.position.add(
-          component.velocity.scale(this._delta),
-        );
-      }
+      component.velocity = component.velocity.add(
+        component.acceleration.scale(this._delta),
+      );
+      component.position = component.position.add(
+        component.velocity.scale(this._delta),
+      );
     }
   }
 

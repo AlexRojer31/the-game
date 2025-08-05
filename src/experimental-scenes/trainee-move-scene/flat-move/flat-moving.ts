@@ -3,7 +3,7 @@ import { GetSceneLoader } from "../../../core/loaders/scene-loader/run";
 import { Vec2 } from "../../../core/utils/vec2";
 import FlatMovable, { IFlatMovable } from "./flat-movable";
 
-export default class FlatMoving extends System {
+export default class FlatMoving extends System<FlatMovable> {
   private _defaultVelocity: number = 200;
   private _delta: number =
     GetSceneLoader().getCurrentScene()!.getCurrentTicker().deltaMS / 1000;
@@ -17,23 +17,29 @@ export default class FlatMoving extends System {
   public update(): void {
     super.update();
     for (const component of this.getComponents()) {
-      const c: FlatMovable = component as FlatMovable;
-
       let horVelocity = 0;
       let verVelocity = 0;
-      if (c.WASDControlable.left && !c.WASDControlable.right) {
+      if (component.WASDControlable.left && !component.WASDControlable.right) {
         horVelocity = -this._defaultVelocity;
-      } else if (!c.WASDControlable.left && c.WASDControlable.right) {
+      } else if (
+        !component.WASDControlable.left &&
+        component.WASDControlable.right
+      ) {
         horVelocity = this._defaultVelocity;
       }
-      if (c.WASDControlable.top && !c.WASDControlable.bottom) {
+      if (component.WASDControlable.top && !component.WASDControlable.bottom) {
         verVelocity = -this._defaultVelocity;
-      } else if (!c.WASDControlable.top && c.WASDControlable.bottom) {
+      } else if (
+        !component.WASDControlable.top &&
+        component.WASDControlable.bottom
+      ) {
         verVelocity = this._defaultVelocity;
       }
 
-      c.velocity = new Vec2(horVelocity, verVelocity);
-      c.position = c.position.add(c.velocity.scale(this._delta));
+      component.velocity = new Vec2(horVelocity, verVelocity);
+      component.position = component.position.add(
+        component.velocity.scale(this._delta),
+      );
     }
   }
 

@@ -1,20 +1,20 @@
 import { Component } from "./component";
 
-export class Entity {
+export class Entity<T extends Component> {
   private _id!: string;
 
-  private _components: Component[] = [];
+  private _components: T[] = [];
 
   constructor() {
     this._id = crypto.randomUUID();
   }
 
-  public attachComponents(...components: Component[]) {
+  public attachComponents(...components: T[]) {
     this._components = [...this._components, ...components];
   }
 
   public deleteComponents() {
-    this._components.forEach((c: Component) => c.delete());
+    this._components.forEach((c: T) => c.delete());
   }
 
   public getID(): string {

@@ -1,36 +1,34 @@
 import { System } from "../../../../core/ecs/system";
 import WASDControlable from "./wasd-contolable";
 
-export default class WASDControling extends System {
+export default class WASDControling extends System<WASDControlable> {
   constructor() {
     super();
 
     window.onkeydown = (event) => {
       for (const component of this.getComponents()) {
-        const c: WASDControlable = component as WASDControlable;
         if (event.code === "KeyW") {
-          c.top = true;
+          component.top = true;
         } else if (event.code === "KeyS") {
-          c.bottom = true;
+          component.bottom = true;
         } else if (event.code === "KeyA") {
-          c.left = true;
+          component.left = true;
         } else if (event.code === "KeyD") {
-          c.right = true;
+          component.right = true;
         }
       }
     };
 
     window.onkeyup = (event) => {
       for (const component of this.getComponents()) {
-        const c: WASDControlable = component as WASDControlable;
         if (event.code === "KeyW") {
-          c.top = false;
+          component.top = false;
         } else if (event.code === "KeyS") {
-          c.bottom = false;
+          component.bottom = false;
         } else if (event.code === "KeyA") {
-          c.left = false;
+          component.left = false;
         } else if (event.code === "KeyD") {
-          c.right = false;
+          component.right = false;
         }
       }
     };
