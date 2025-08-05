@@ -23,7 +23,7 @@ export default class ScreenEdgeBounceSystem extends System {
     this.width = currentSize.width;
     this.height = currentSize.height;
 
-    for (const component of this._components) {
+    for (const component of this.getComponents()) {
       if (component instanceof ScreenEdgeBounce) {
         const bodyComponent = component.body;
         const graphicsComponent = component.bodyGraphics;
@@ -74,7 +74,7 @@ export default class ScreenEdgeBounceSystem extends System {
 
   createScreenEdgeBounceComponent(body: Body, bodyGraphics: BodyGraphics) {
     const component = new ScreenEdgeBounce(body, bodyGraphics);
-    this._components.push(component);
+    this.pushComponents(component);
     return component;
   }
 }

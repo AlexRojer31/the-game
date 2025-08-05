@@ -29,7 +29,7 @@ export class GraphicsSystem extends System {
     this.height = currentSize.height;
 
     this.graphics.clear();
-    for (const component of this._components) {
+    for (const component of this.getComponents()) {
       if (component instanceof BodyGraphics) {
         this.graphics
           .circle(
@@ -44,7 +44,7 @@ export class GraphicsSystem extends System {
 
   createGraphicsComponent(body: Body) {
     const graphicsComponent = new BodyGraphics(body);
-    this._components.push(graphicsComponent);
+    this.pushComponents(graphicsComponent);
     return graphicsComponent;
   }
 }

@@ -11,7 +11,7 @@ export class Physics extends System {
   }
 
   public update(): void {
-    for (const component of this._components) {
+    for (const component of this.getComponents()) {
       if (component instanceof Body) {
         component.velocity = component.velocity.add(
           component.acceleration.scale(this._delta),
@@ -25,7 +25,7 @@ export class Physics extends System {
 
   public createBodyComponent(posX: number, posY: number) {
     const component = new Body(posX, posY);
-    this._components.push(component);
+    this.pushComponents(component);
     return component;
   }
 }
