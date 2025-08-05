@@ -18,7 +18,11 @@ export default class FlatMoving extends System {
     }
   }
 
-  public createFlatMovable(posX: number, posY: number, velocity: Vec2) {
+  public createFlatMovable(
+    posX: number,
+    posY: number,
+    velocity: Vec2,
+  ): FlatMovable {
     const component = new FlatMovable({
       startPosition: new Vec2(posX, posY),
       velocity: velocity,

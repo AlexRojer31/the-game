@@ -1,3 +1,4 @@
+import { GetApp } from "../../core/app/run";
 import { Entity } from "../../core/ecs/entity";
 import { BaseScene } from "../../core/loaders/scene-loader/base-scene";
 import { Vec2 } from "../../core/utils/vec2";
@@ -12,7 +13,12 @@ export class TraineeMoveScene extends BaseScene {
     this.flatMoving = new FlatMoving();
     this.drawRectangling = new Rectangling();
 
-    this.createRect(50, 50);
+    this.createRect(
+      GetApp().screen.width / 2,
+      GetApp().screen.height / 2,
+      150,
+      50,
+    );
   }
 
   protected _animate(): void {
@@ -23,16 +29,21 @@ export class TraineeMoveScene extends BaseScene {
     this.flatMoving.deleteStaleComponents();
   }
 
-  private createRect(posX: number, posY: number): void {
+  private createRect(
+    posX: number,
+    posY: number,
+    width: number,
+    height: number,
+  ): void {
     const entity = new Entity();
     const flatMovable = this.flatMoving.createFlatMovable(
       posX,
       posY,
-      new Vec2(200, 200),
+      new Vec2(0, 0),
     );
     const drawRectangable = this.drawRectangling.createRectangable(
-      100,
-      100,
+      width,
+      height,
       flatMovable,
     );
 

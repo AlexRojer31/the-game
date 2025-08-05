@@ -35,7 +35,7 @@ export default class Rectangling extends System {
     width: number,
     height: number,
     flatMovable: FlatMovable,
-  ) {
+  ): Rectangable {
     const component = new Rectangable({
       width,
       height,
