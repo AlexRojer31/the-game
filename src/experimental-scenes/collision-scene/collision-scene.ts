@@ -8,6 +8,7 @@ import ScreenEdgeBounceSystem from "../trainee-ecs-scene/screen-edge-bounce/scre
 import WASDControling from "../trainee-move-scene/control/wasd/wasd-controling";
 import Rectangling from "../trainee-move-scene/draw/rectangle/rectangling";
 import FlatMoving from "../trainee-move-scene/flat-move/flat-moving";
+import ScreenTouching from "./screen-touch/screen-touching";
 
 export class CollisionScene extends BaseScene {
   private wasdControlling!: WASDControling;
@@ -16,6 +17,7 @@ export class CollisionScene extends BaseScene {
   private physicsSystem!: Physics;
   private screenEdgeBounceSystem!: ScreenEdgeBounceSystem;
   private graphicsSystem!: GraphicsSystem;
+  private screenTouching!: ScreenTouching;
 
   protected _prepare(): void {
     this.wasdControlling = new WASDControling();
@@ -24,6 +26,7 @@ export class CollisionScene extends BaseScene {
     this.physicsSystem = new Physics();
     this.screenEdgeBounceSystem = new ScreenEdgeBounceSystem();
     this.graphicsSystem = new GraphicsSystem();
+    this.screenTouching = new ScreenTouching();
 
     this.createBouncingBall(50, 50);
     this.createBouncingBall(200, 70);
@@ -44,12 +47,14 @@ export class CollisionScene extends BaseScene {
     this.graphicsSystem.update();
     this.drawRectangling.update();
     this.flatMoving.update();
+    this.screenTouching.update();
 
     this.drawRectangling.deleteStaleComponents();
     this.flatMoving.deleteStaleComponents();
     this.physicsSystem.deleteStaleComponents();
     this.screenEdgeBounceSystem.deleteStaleComponents();
     this.graphicsSystem.deleteStaleComponents();
+    this.screenTouching.deleteStaleComponents();
   }
 
   private createRect(
@@ -70,8 +75,15 @@ export class CollisionScene extends BaseScene {
       height,
       flatMovable,
     });
+    const screenTouchable =
+      this.screenTouching.createScreenTouchable(drawRectangable);
 
-    entity.attachComponents(WASDControlable, flatMovable, drawRectangable);
+    entity.attachComponents(
+      WASDControlable,
+      flatMovable,
+      drawRectangable,
+      screenTouchable,
+    );
   }
 
   private createBouncingBall(posX: number, posY: number): void {
