@@ -10,7 +10,7 @@ export class Body extends Component {
   constructor(posX: number, posY: number) {
     super();
     this.position = new Vec2(posX, posY);
-    this.velocity = new Vec2(200, 0);
-    this.acceleration = new Vec2(0, 500);
+    this.velocity = new Vec2((Math.random() * 1000) / 2, 0);
+    this.acceleration = new Vec2(0, Math.random() * 1000);
   }
 }
